@@ -1,0 +1,27 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: warden-notification-job-ci
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: glob:ci-*
+spec:
+  releaseName: warden-notification-job-ci
+  chart:
+    git: git@github.com:sumit2chauhan/flux-get-started
+    path: charts/dotnet-background-job
+    ref: master
+  values:
+    replicaCount: 1
+    environment: "CI"
+    image:
+      repository: "rarecarat.azurecr.io/warden-notification-job"
+      tag: "ci-23fc9d07f7b99417c44b35e6317c3df9a4d56783"
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
