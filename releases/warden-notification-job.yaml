@@ -14,7 +14,7 @@ spec:
     ref: master
   values:
     replicaCount: 1
-    environment: "CI"
+    environment: "Production"
     image:
       repository: "rarecarat.azurecr.io/warden-notification-job"
       tag: "ci-23fc9d07f7b99417c44b35e6317c3df9a4d56783"
