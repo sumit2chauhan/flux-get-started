@@ -17,7 +17,7 @@ spec:
     environment: "CI"
     image:
       repository: "rarecarat.azurecr.io/warden-notification-job"
-      tag: "ci-23fc9d07f7b99417c44b35e6317c3df9a4d56783"
+      tag: "ci-7163d18fc74f5abea87d3ef97b06b583571a6d51"
     resources:
       requests:
         memory: "512Mi"
