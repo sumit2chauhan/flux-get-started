@@ -1,8 +1,8 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
-namespace: ci
 metadata:
-     name: localstorage
+  name: localstorage
+  namespace: ci
 provisioner: docker.io/hostpath
 parameters:
   storageaccounttype: Standard_LRS
@@ -10,9 +10,9 @@ parameters:
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
-namespace: ci
 metadata:
   name: mssql-data
+  namespace: ci
   annotations:
     volume.beta.kubernetes.io/storage-class: localstorage
 spec:
@@ -24,8 +24,8 @@ spec:
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
-namespace: ci
 metadata:
+  namespace: ci
   name: mssql-deployment
 spec:
   replicas: 1
@@ -60,9 +60,9 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-namespace: ci
 metadata:
   name: mssql-deployment
+  namespace: ci
 spec:
   selector:
     app: mssql
