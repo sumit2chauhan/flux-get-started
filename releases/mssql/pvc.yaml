@@ -1,5 +1,6 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
+namespace: ci
 metadata:
      name: localstorage
 provisioner: docker.io/hostpath
@@ -9,6 +10,7 @@ parameters:
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
+namespace: ci
 metadata:
   name: mssql-data
   annotations:
@@ -22,6 +24,7 @@ spec:
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
+namespace: ci
 metadata:
   name: mssql-deployment
 spec:
@@ -57,6 +60,7 @@ spec:
 ---
 apiVersion: v1
 kind: Service
+namespace: ci
 metadata:
   name: mssql-deployment
 spec:
