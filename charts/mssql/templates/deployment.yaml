@@ -1,0 +1,41 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ include "mssql.fullname" . }}
+  labels:
+{{ include "mssql.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "mssql.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "mssql.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: {{ .Chart.Name }}
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        ports:
+        - containerPort: 1433
+        env:
+        - name: MSSQL_PID
+          value: "Developer"
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secretKey}}
+              key: SA_PASSWORD 
+        volumeMounts:
+        - name: {{ .Values.mountVolume.name}}
+          mountPath: /var/opt/mssql
+      volumes:
+      - name: {{ .Values.mountVolume.name}}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistentVolumeClaim.name }}

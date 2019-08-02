@@ -1,0 +1,25 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: mssql-ci
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: glob:ci-*
+spec:
+  releaseName: ci
+  chart:
+    git: git@github.com:sumit2chauhan/flux-get-started
+    path: charts/mssql
+    ref: master
+  values:
+    persistentVolumeClaim:
+      capacity: 11Gi
+      name: mssql-pvc-ci
+
+    replicaCount: 1
+
+    secretKey: mssql
+
+    mountVolume:
+      name: mssql-vol-ci
