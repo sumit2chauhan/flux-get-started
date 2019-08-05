@@ -3,11 +3,12 @@ apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
   name: mssql-ci
+  namespace: ci
   annotations:
     flux.weave.works/automated: "true"
     flux.weave.works/tag.chart-image: glob:ci-*
 spec:
-  releaseName: ci
+  releaseName: mssql-ci
   chart:
     git: git@github.com:sumit2chauhan/flux-get-started
     path: charts/mssql

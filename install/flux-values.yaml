@@ -1,0 +1,36 @@
+namespace: kube-system
+
+rbac:
+  create: false
+
+serviceAccount:
+  create: false
+
+git:
+  email: sumit2.chauhan@gmail.com
+  url: git@github.com:sumit2chauhan/flux-get-started
+  path: releases
+  pollInterval: "120s"
+  secretName: "flux-git-ssh-secret"
+
+registry:
+  dockercfg:
+    secretName: rarecarat-acr-secret
+    pollInterval: "240s"
+
+helmOperator:
+  create: true
+  createCRD: true
+  secretName: rarecarat-acr-secret
+  
+memcached:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 628Mi
+    requests:
+      cpu: 50m
+      memory: 512Mi
+
+additionalArgs:
+  - --sync-garbage-collection # delete kubernete resources when files are excluded from git
